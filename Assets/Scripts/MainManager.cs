@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class MainManager : MonoBehaviour
 {
@@ -14,12 +15,15 @@ public class MainManager : MonoBehaviour
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
+    public int m_Points;
+
+    public Text highScoreDisplay;
+    public int highScore;
+    public string highScorePlayerName;
     
     private bool m_GameOver = false;
 
     
-    // Start is called before the first frame update
     void Start()
     {
         const float step = 0.6f;
@@ -36,6 +40,9 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+        GameManager.Instance.LoadScore();
+        HighScore();
     }
 
     private void Update()
@@ -51,6 +58,9 @@ public class MainManager : MonoBehaviour
 
                 Ball.transform.SetParent(null);
                 Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
+
+                GameManager.Instance.LoadScore();
+                HighScore();
             }
         }
         else if (m_GameOver)
@@ -58,6 +68,9 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                
+                GameManager.Instance.LoadScore();
+                HighScore();
             }
         }
     }
@@ -68,9 +81,19 @@ public class MainManager : MonoBehaviour
         ScoreText.text = $"Score : {m_Points}";
     }
 
-    public void GameOver()
+   public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+
+        if(m_Points >= highScore)
+        {
+           GameManager.Instance.SaveScoreAndName();
+        }
+    }
+
+    public void HighScore()
+    {
+        highScoreDisplay.text = "High Score: " + highScorePlayerName + ": " + highScore;
     }
 }
