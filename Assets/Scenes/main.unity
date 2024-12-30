@@ -548,9 +548,8 @@ MonoBehaviour:
   Ball: {fileID: 177912862}
   ScoreText: {fileID: 188020406}
   GameOverText: {fileID: 474497238}
-  highScoreDisplay: {fileID: 0}
-  highScore: 0
-  highScorePlayerName: 
+  m_Points: 0
+  highScoreDisplay: {fileID: 2078529056}
 --- !u!1 &455529321
 GameObject:
   m_ObjectHideFlags: 0

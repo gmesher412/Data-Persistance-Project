@@ -18,9 +18,6 @@ public class MainManager : MonoBehaviour
     public int m_Points;
 
     public Text highScoreDisplay;
-    public int highScore;
-    public string highScorePlayerName;
-    
     private bool m_GameOver = false;
 
     
@@ -86,7 +83,7 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
 
-        if(m_Points >= highScore)
+        if(m_Points >= GameManager.Instance.highScore)
         {
            GameManager.Instance.SaveScoreAndName();
         }
@@ -94,6 +91,6 @@ public class MainManager : MonoBehaviour
 
     public void HighScore()
     {
-        highScoreDisplay.text = "High Score: " + highScorePlayerName + ": " + highScore;
+        highScoreDisplay.text = "High Score: " + GameManager.Instance.highScorePlayerName + ": " + GameManager.Instance.highScore;
     }
 }

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public string nameText;
     public MainManager Manager;
+    public int highScore;
+    public string highScorePlayerName;
     
     void Awake()
     {
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
     #endif
     }
 
-    [System.Serializable]
+        [System.Serializable]
     class SaveData
     {
         public string end_PlayerName;
@@ -73,8 +75,8 @@ public class GameManager : MonoBehaviour
 
             if(data != null)
             {
-                Manager.highScore = data.end_Score;
-                Manager.highScorePlayerName = data.end_PlayerName;
+                highScore = data.end_Score;
+                highScorePlayerName = data.end_PlayerName;
                 Debug.Log("Score loaded successfully.");
             }
             else
